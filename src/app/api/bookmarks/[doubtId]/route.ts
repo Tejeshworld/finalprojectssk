@@ -3,7 +3,7 @@ import { prisma } from '@/lib/db';
 
 export async function POST(
     request: Request,
-    { params }: { params: { doubtId: string } }
+    { params }: { params: Promise<{ doubtId: string }> }
 ) {
     try {
         const { getUserFromCookie } = await import('@/lib/auth');
@@ -13,7 +13,7 @@ export async function POST(
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
-        const { doubtId } = params;
+        const { doubtId } = await params;
 
         const existing = await prisma.bookmark.findFirst({
             where: {
@@ -40,7 +40,7 @@ export async function POST(
 
 export async function DELETE(
     request: Request,
-    { params }: { params: { doubtId: string } }
+    { params }: { params: Promise<{ doubtId: string }> }
 ) {
     try {
         const { getUserFromCookie } = await import('@/lib/auth');
@@ -50,7 +50,7 @@ export async function DELETE(
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
-        const { doubtId } = params;
+        const { doubtId } = await params;
 
         await prisma.bookmark.deleteMany({
             where: {

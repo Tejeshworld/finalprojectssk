@@ -3,7 +3,7 @@ import { generateQuizQuestions } from '@/lib/ai-service';
 
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } | Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const resolvedParams = await params;
@@ -30,9 +30,9 @@ export async function GET(
     console.error('----------------------------------------------');
     return new NextResponse(
       JSON.stringify({ error: error.message || 'Failed to generate quiz', stack: error.stack }),
-      { 
-        status: 500, 
-        headers: { 'Content-Type': 'application/json' } 
+      {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' }
       }
     );
   }
