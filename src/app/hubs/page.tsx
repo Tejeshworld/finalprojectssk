@@ -3,7 +3,26 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
-import { HiOutlineMagnifyingGlass, HiOutlineRocketLaunch, HiOutlineGlobeAlt } from 'react-icons/hi2';
+import {
+  HiOutlineMagnifyingGlass, HiOutlineRocketLaunch, HiOutlineGlobeAlt,
+  HiOutlineComputerDesktop, HiOutlineBeaker, HiOutlineBookOpen,
+  HiOutlinePaintBrush, HiOutlineCpuChip, HiOutlineShieldCheck, HiOutlineAtSymbol
+} from 'react-icons/hi2';
+
+const renderHubIcon = (iconStr: string) => {
+  if (!iconStr) return <HiOutlineGlobeAlt size={28} />;
+
+  if (iconStr === 'ComputerDesktop' || iconStr === '💻') return <HiOutlineComputerDesktop size={28} />;
+  if (iconStr === 'Beaker' || iconStr === '🧪') return <HiOutlineBeaker size={28} />;
+  if (iconStr === 'BookOpen' || iconStr === '📚') return <HiOutlineBookOpen size={28} />;
+  if (iconStr === 'PaintBrush' || iconStr === '🎨') return <HiOutlinePaintBrush size={28} />;
+  if (iconStr === 'RocketLaunch' || iconStr === '🚀') return <HiOutlineRocketLaunch size={28} />;
+  if (iconStr === 'CpuChip' || iconStr === '🤖') return <HiOutlineCpuChip size={28} />;
+  if (iconStr === 'ShieldCheck' || iconStr === '🛡️') return <HiOutlineShieldCheck size={28} />;
+  if (iconStr === 'AtSymbol' || iconStr === '@') return <HiOutlineAtSymbol size={28} />;
+
+  return <HiOutlineGlobeAlt size={28} />;
+};
 
 export default function HubsPage() {
   const [hubs, setHubs] = useState<any[]>([]);
@@ -93,13 +112,7 @@ export default function HubsPage() {
                   width: '60px', height: '60px', borderRadius: '16px', background: 'rgba(255,255,255,0.03)',
                   border: '1px solid rgba(255,255,255,0.05)', flexShrink: 0
                 }}>
-                  {hub.icon ? (
-                    typeof hub.icon === 'string' && hub.icon.startsWith('<') ? (
-                      <div dangerouslySetInnerHTML={{ __html: hub.icon }} />
-                    ) : (
-                      <span style={{ fontSize: '1.5rem' }}>{hub.icon}</span>
-                    )
-                  ) : <HiOutlineGlobeAlt size={28} />}
+                  {renderHubIcon(hub.icon)}
                 </div>
                 <div>
                   <h3 style={{ fontSize: '1.25rem', fontWeight: 900, color: 'white', marginBottom: '4px' }}>{hub.name}</h3>

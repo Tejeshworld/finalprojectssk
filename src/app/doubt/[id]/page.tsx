@@ -230,11 +230,11 @@ export default function DoubtDetailPage() {
         <section>
           {/* Question Section */}
           <div className="glass-panel" style={{ padding: '2rem', marginBottom: '2rem' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
-              <h1 style={{ fontSize: '1.75rem', lineHeight: 1.3, color: 'var(--text-primary)' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem', marginBottom: '1rem' }}>
+              <h1 style={{ fontSize: '1.75rem', lineHeight: 1.3, color: 'var(--text-primary)', flex: '1 1 300px', margin: 0 }}>
                 {doubt.title}
               </h1>
-              <div style={{ display: 'flex', gap: '0.5rem' }}>
+              <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
                 <div className="badge" style={{ backgroundColor: doubt.hub.color + '20', color: doubt.hub.color }}>
                   {doubt.hub.name}
                 </div>
