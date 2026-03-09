@@ -1,18 +1,23 @@
 "use client";
 
+import { useState } from 'react';
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
 import NotificationDropdown from './NotificationDropdown';
 
 export default function Navbar() {
   const { user, logout, isLoading } = useAuth();
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const closeMobile = () => setMobileOpen(false);
 
   return (
     <nav className="glass-header w-full" style={{ position: 'sticky', top: 0, zIndex: 100, padding: '1rem 0' }}>
       <div className="container flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2">
+        {/* Logo */}
+        <Link href="/" className="flex items-center gap-2" onClick={closeMobile}>
           <div style={{
-            width: '32px', height: '32px', borderRadius: '8px', 
+            width: '32px', height: '32px', borderRadius: '8px',
             background: 'linear-gradient(135deg, var(--accent-primary), var(--accent-secondary))',
             display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold'
           }}>
@@ -22,7 +27,9 @@ export default function Navbar() {
             Doubt<span style={{ color: 'var(--accent-primary)' }}>Hub</span>
           </span>
         </Link>
-        <div className="flex items-center gap-4">
+
+        {/* Desktop Nav */}
+        <div className="nav-desktop flex items-center gap-4">
           <Link href="/leaderboard" style={{ fontWeight: 500, color: 'var(--text-secondary)' }} className="hover:text-white transition-colors">
             Leaderboard
           </Link>
@@ -32,7 +39,7 @@ export default function Navbar() {
           <Link href="/ask">
             <button className="btn btn-primary">Ask a Doubt</button>
           </Link>
-          
+
           {!isLoading && (
             <>
               {user ? (
@@ -58,7 +65,63 @@ export default function Navbar() {
             </>
           )}
         </div>
+
+        {/* Hamburger Button (mobile) */}
+        <button
+          className="nav-hamburger"
+          onClick={() => setMobileOpen(!mobileOpen)}
+          aria-label="Toggle menu"
+        >
+          <span style={{ display: 'flex', flexDirection: 'column', gap: '5px', width: '24px' }}>
+            <span style={{
+              display: 'block', height: '2px', background: 'white', borderRadius: '2px',
+              transition: 'all 0.3s', transform: mobileOpen ? 'rotate(45deg) translateY(7px)' : 'none'
+            }} />
+            <span style={{
+              display: 'block', height: '2px', background: 'white', borderRadius: '2px',
+              transition: 'all 0.3s', opacity: mobileOpen ? 0 : 1
+            }} />
+            <span style={{
+              display: 'block', height: '2px', background: 'white', borderRadius: '2px',
+              transition: 'all 0.3s', transform: mobileOpen ? 'rotate(-45deg) translateY(-7px)' : 'none'
+            }} />
+          </span>
+        </button>
       </div>
+
+      {/* Mobile Menu */}
+      {mobileOpen && (
+        <div className="nav-mobile-menu" onClick={closeMobile}>
+          <Link href="/ask" className="nav-mobile-item nav-mobile-cta">
+            ✨ Ask a Doubt
+          </Link>
+          <Link href="/leaderboard" className="nav-mobile-item">🏆 Leaderboard</Link>
+          <Link href="/chat" className="nav-mobile-item">💬 Chat Lounge</Link>
+          <Link href="/hubs" className="nav-mobile-item">🏷️ Hubs</Link>
+
+          {!isLoading && (
+            <>
+              {user ? (
+                <>
+                  <Link href="/bookmarks" className="nav-mobile-item">🔖 Bookmarks</Link>
+                  <Link href="/notifications" className="nav-mobile-item">🔔 Notifications</Link>
+                  <Link href={`/profile/${user.id}`} className="nav-mobile-item">
+                    👤 {user.username}
+                  </Link>
+                  <button onClick={() => { logout(); closeMobile(); }} className="nav-mobile-item" style={{ width: '100%', textAlign: 'left', color: 'var(--accent-danger)' }}>
+                    🚪 Logout
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link href="/login" className="nav-mobile-item">🔑 Login</Link>
+                  <Link href="/register" className="nav-mobile-item nav-mobile-cta">🚀 Sign Up</Link>
+                </>
+              )}
+            </>
+          )}
+        </div>
+      )}
     </nav>
   );
 }
