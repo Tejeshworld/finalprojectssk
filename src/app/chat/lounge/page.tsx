@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import ChatLayout from "@/components/chat/ChatLayout";
+import { HiOutlineChatBubbleOvalLeftEllipsis, HiOutlineGlobeAlt } from 'react-icons/hi2';
 
 export default function LoungePage() {
     const router = useRouter();
@@ -63,7 +64,7 @@ export default function LoungePage() {
                         background: "rgba(99,102,241,0.15)", border: "1px solid rgba(99,102,241,0.2)",
                         display: "flex", alignItems: "center", justifyContent: "center",
                         fontSize: "2rem", margin: "0 auto 1.5rem",
-                    }}>💬</div>
+                    }}><HiOutlineChatBubbleOvalLeftEllipsis size={40} className="text-gray-400" /></div>
                     <h2 style={{ fontSize: "1.25rem", fontWeight: 900, color: "#fff", marginBottom: "0.75rem" }}>
                         Community Lounge
                     </h2>
@@ -119,7 +120,7 @@ export default function LoungePage() {
                                 cursor: "pointer", border: "none",
                             }}
                         >
-                            <span style={{ fontSize: "1rem" }}>🌐</span>
+                            <HiOutlineGlobeAlt size={20} className={!activeHubId ? 'text-white' : 'text-gray-400'} />
                             <span>General Lounge</span>
                         </button>
                     </div>

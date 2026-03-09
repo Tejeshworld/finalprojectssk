@@ -7,6 +7,7 @@ import ActivityGraph from '@/components/ActivityGraph';
 import SidebarLeft from '@/components/layout/SidebarLeft';
 import SidebarRight from '@/components/layout/SidebarRight';
 import DoubtFeed from '@/components/layout/DoubtFeed';
+import { HiOutlineHandRaised, HiOutlineQuestionMarkCircle, HiOutlineLightBulb, HiOutlineStar, HiOutlineBookmark } from 'react-icons/hi2';
 
 export default function Home() {
   const { user } = useAuth();
@@ -83,9 +84,9 @@ export default function Home() {
       {/* ── Welcome Banner ── */}
       <section className="welcome-card shadow-glow">
         <div style={{ position: 'relative', zIndex: 10, flex: 1 }}>
-          <h1 style={{ fontSize: '2.25rem', fontWeight: 900, color: 'white', marginBottom: '0.75rem' }}>
+          <h1 style={{ fontSize: '2.25rem', fontWeight: 900, color: 'white', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
             Welcome back,{' '}
-            <span style={{ color: 'var(--accent-primary)' }}>{user?.username || 'Learner'}</span> 👋
+            <span style={{ color: 'var(--accent-primary)' }}>{user?.username || 'Learner'}</span> <HiOutlineHandRaised size={32} className="text-yellow-400" />
           </h1>
           <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', maxWidth: '480px', marginBottom: '1.75rem', fontWeight: 500 }}>
             Ready to solve some doubts today? Your contributions are making the community smarter.
@@ -98,12 +99,12 @@ export default function Home() {
 
         <div className="stat-grid" style={{ zIndex: 10, width: '100%', maxWidth: '480px' }}>
           {[
-            { label: 'Doubts Asked', val: userProfile?._count?.doubts || 0, icon: '❓' },
-            { label: 'Answers Given', val: userProfile?._count?.answers || 0, icon: '💡' },
-            { label: 'Reputation', val: userProfile?.reputation || 0, icon: '⭐' },
-            { label: 'Bookmarks', val: userProfile?._count?.bookmarks || 0, icon: '🔖' },
-          ].map(stat => (
-            <div key={stat.label} className="stat-card">
+            { label: 'Doubts Asked', val: userProfile?._count?.doubts || 0, icon: <HiOutlineQuestionMarkCircle size={28} /> },
+            { label: 'Answers Given', val: userProfile?._count?.answers || 0, icon: <HiOutlineLightBulb size={28} /> },
+            { label: 'Reputation', val: userProfile?.reputation || 0, icon: <HiOutlineStar size={28} /> },
+            { label: 'Bookmarks', val: userProfile?._count?.bookmarks || 0, icon: <HiOutlineBookmark size={28} /> },
+          ].map((stat, idx) => (
+            <div key={idx} className="stat-card">
               <span style={{ fontSize: '1.4rem', marginBottom: '0.2rem' }}>{stat.icon}</span>
               <span style={{ fontSize: '1.6rem', fontWeight: 900, color: 'white' }}>{stat.val}</span>
               <span style={{ fontSize: '9px', fontWeight: 900, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '2px' }}>

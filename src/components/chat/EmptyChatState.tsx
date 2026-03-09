@@ -1,5 +1,7 @@
 "use client";
 
+import { HiOutlineChatBubbleOvalLeftEllipsis } from 'react-icons/hi2';
+
 export default function EmptyChatState() {
     return (
         <div style={{
@@ -23,7 +25,7 @@ export default function EmptyChatState() {
                 fontSize: '1.8rem',
                 animation: 'pulse-soft 3s infinite',
             }}>
-                💬
+                <HiOutlineChatBubbleOvalLeftEllipsis size={32} className="text-gray-400" />
             </div>
 
             {/* Text */}

@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import DoubtCard from '@/components/layout/DoubtCard';
+import { HiOutlineRocketLaunch } from 'react-icons/hi2';
 
 interface DoubtFeedProps {
     doubts: any[];
@@ -27,8 +28,8 @@ export default function DoubtFeed({ doubts }: DoubtFeedProps) {
             <div className="flex flex-col gap-4 w-full">
                 {doubts.length === 0 ? (
                     <div className="glass-panel w-full p-8 flex flex-col items-center justify-center gap-4 min-h-[140px]">
-                        <p style={{ fontWeight: 700, color: 'var(--text-muted)', fontSize: '14px', margin: 0 }}>
-                            No doubts yet. Start the conversation! 🚀
+                        <p style={{ fontWeight: 700, color: 'var(--text-muted)', fontSize: '14px', margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            No doubts yet. Start the conversation! <HiOutlineRocketLaunch size={18} />
                         </p>
                         <Link href="/ask" className="btn btn-primary mt-4" style={{ padding: '0.75rem 2rem' }}>
                             Ask a Doubt

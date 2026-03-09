@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { HiOutlineTrophy } from 'react-icons/hi2';
 
 export default function LeaderboardPage() {
   const [leaderboard, setLeaderboard] = useState<any[]>([]);
@@ -86,18 +87,11 @@ export default function LeaderboardPage() {
                     key={user.id}
                     className="hover:bg-white/[0.01] transition-colors grid grid-cols-[120px_1fr_150px_150px_150px] items-center px-6 py-8 border-b border-white/5"
                   >
-                    {/* Rank */}
                     <div
                       className={`text-xl flex items-center justify-center font-black ${index < 3 ? "text-accent-primary" : "text-white/20"
                         }`}
                     >
-                      {index === 0
-                        ? "🥇"
-                        : index === 1
-                          ? "🥈"
-                          : index === 2
-                            ? "🥉"
-                            : `#${index + 1}`}
+                      {index < 3 ? <div className="flex items-center gap-1"><HiOutlineTrophy size={20} /> <span className="text-sm">{index + 1}</span></div> : `#${index + 1}`}
                     </div>
 
                     {/* Contributor */}

@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
 import DoubtCard from '@/components/DoubtCard';
 import ActivityGraph from '@/components/ActivityGraph';
+import { HiOutlineStar, HiOutlineCheckCircle } from 'react-icons/hi2';
 
 export default function ProfilePage() {
   const { id } = useParams() as { id: string };
@@ -138,7 +139,11 @@ export default function ProfilePage() {
                   return (
                     <div key={`eh-${i}`} style={{ display: 'flex', justifyContent: 'space-between', background: 'rgba(255,255,255,0.03)', padding: '0.5rem 1rem', borderRadius: 'var(--radius-sm)' }}>
                       <span style={{ fontWeight: 500 }}>{hub.name}</span>
-                      <span style={{ color: 'var(--accent-warning)', letterSpacing: '2px' }}>{'⭐'.repeat(stars)}</span>
+                      <span style={{ color: 'var(--accent-warning)', display: 'flex', gap: '2px' }}>
+                        {Array.from({ length: stars }).map((_, idx) => (
+                          <HiOutlineStar key={idx} size={16} />
+                        ))}
+                      </span>
                     </div>
                   )
                 })}
@@ -149,11 +154,19 @@ export default function ProfilePage() {
           <div>
             <h3 style={{ fontSize: '1.1rem', marginBottom: '1rem', color: 'var(--text-secondary)' }}>Earned Badges</h3>
             <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-              {profile.badges && profile.badges.length > 0 ? profile.badges.map((badge: any) => (
-                <div key={badge.id} title={badge.name} style={{ width: '40px', height: '40px', background: 'rgba(255,255,255,0.05)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem' }}>
-                  {badge.icon}
-                </div>
-              )) : <span style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>No badges yet</span>}
+              {profile.badges && profile.badges.length > 0 ? profile.badges.map((badge: any) => {
+                let badgeIcon = badge.icon;
+                if (badge.icon === '🌱' || badge.name === 'Beginner Helper') badgeIcon = <HiOutlineStar className="text-green-400" />;
+                if (badge.icon === '🔥' || badge.name === 'Active Contributor') badgeIcon = <HiOutlineStar className="text-orange-500" />;
+                if (badge.icon === '👑' || badge.name === 'Top Solver') badgeIcon = <HiOutlineCheckCircle className="text-yellow-500" />;
+                if (badge.icon === '🌟' || badge.name.includes('Expert')) badgeIcon = <HiOutlineStar className="text-yellow-300" />;
+
+                return (
+                  <div key={badge.id} title={badge.name} style={{ width: '40px', height: '40px', background: 'rgba(255,255,255,0.05)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem' }}>
+                    {badgeIcon}
+                  </div>
+                );
+              }) : <span style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>No badges yet</span>}
             </div>
           </div>
         </div>
@@ -206,7 +219,7 @@ export default function ProfilePage() {
                       Answered on thread: <span style={{ color: 'var(--accent-primary)', fontWeight: 500 }}>{answer.doubt.title}</span>
                     </div>
                   </Link>
-                  {answer.isBestAnswer && <span className="badge" style={{ backgroundColor: 'rgba(16, 185, 129, 0.2)', color: 'var(--accent-success)' }}>✅ Best Answer</span>}
+                  {answer.isBestAnswer && <span className="badge" style={{ backgroundColor: 'rgba(16, 185, 129, 0.2)', color: 'var(--accent-success)', display: 'flex', alignItems: 'center', gap: '4px' }}><HiOutlineCheckCircle size={14} /> Best Answer</span>}
                 </div>
                 <p style={{ fontSize: '1rem', lineHeight: 1.6, color: 'var(--text-primary)' }}>
                   {answer.content}

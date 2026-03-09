@@ -4,15 +4,15 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import Link from 'next/link';
-import { HiOutlineScale, HiOutlineSparkles, HiOutlineShieldExclamation, HiOutlineLightBulb } from 'react-icons/hi2';
+import { HiOutlineScale, HiOutlineSparkles, HiOutlineShieldExclamation, HiOutlineLightBulb, HiOutlineChatBubbleLeftRight, HiOutlineNoSymbol, HiOutlineBookOpen, HiOutlineLockClosed, HiOutlineBolt, HiOutlineGlobeAlt, HiOutlineChatBubbleOvalLeftEllipsis } from 'react-icons/hi2';
 
 const GUIDELINES = [
-  { icon: "🤝", title: "Be Respectful", body: "Treat everyone with courtesy. No harassment, hate speech, or personal attacks." },
-  { icon: "🚫", title: "No Spam", body: "Avoid repetitive messages, self-promotion or flooding the chat with irrelevant content." },
-  { icon: "📚", title: "Academic Focus", body: "Keep discussions relevant — share knowledge, ask questions, and help fellow learners." },
-  { icon: "🔒", title: "Privacy Matters", body: "Never share personal information of yourself or others inside the lounge." },
-  { icon: "⚡", title: "Stay On Topic", body: "Each channel has a purpose. Respect it and contribute meaningfully to the conversation." },
-  { icon: "🌐", title: "Inclusive Space", body: "Welcome learners from all backgrounds. Diversity in perspective makes us all smarter." },
+  { icon: <HiOutlineChatBubbleLeftRight size={24} />, title: "Be Respectful", body: "Treat everyone with courtesy. No harassment, hate speech, or personal attacks." },
+  { icon: <HiOutlineNoSymbol size={24} />, title: "No Spam", body: "Avoid repetitive messages, self-promotion or flooding the chat with irrelevant content." },
+  { icon: <HiOutlineBookOpen size={24} />, title: "Academic Focus", body: "Keep discussions relevant — share knowledge, ask questions, and help fellow learners." },
+  { icon: <HiOutlineLockClosed size={24} />, title: "Privacy Matters", body: "Never share personal information of yourself or others inside the lounge." },
+  { icon: <HiOutlineBolt size={24} />, title: "Stay On Topic", body: "Each channel has a purpose. Respect it and contribute meaningfully to the conversation." },
+  { icon: <HiOutlineGlobeAlt size={24} />, title: "Inclusive Space", body: "Welcome learners from all backgrounds. Diversity in perspective makes us all smarter." },
 ];
 
 export default function ChatGatePage() {
@@ -35,7 +35,7 @@ export default function ChatGatePage() {
             background: "rgba(99,102,241,0.15)", border: "1px solid rgba(99,102,241,0.2)",
             display: "flex", alignItems: "center", justifyContent: "center",
             fontSize: "2rem", margin: "0 auto 1.5rem",
-          }}>💬</div>
+          }}><HiOutlineChatBubbleOvalLeftEllipsis size={32} /></div>
           <h2 style={{ fontSize: "1.25rem", fontWeight: 900, color: "#fff", marginBottom: "0.75rem" }}>Community Lounge</h2>
           <p style={{ fontSize: "0.875rem", color: "var(--text-muted)", marginBottom: "2rem", lineHeight: 1.6 }}>
             Please log in to participate in the real-time community chat.

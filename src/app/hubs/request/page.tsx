@@ -4,13 +4,14 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import Link from 'next/link';
+import { HiOutlineBuildingOffice, HiOutlineCheckCircle, HiOutlineXCircle, HiOutlineTag, HiOutlineDocumentText } from 'react-icons/hi2';
 
 export default function RequestHubPage() {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState<{ type: 'success' | 'error', msg: string } | null>(null);
-  
+
   const { user } = useAuth();
   const router = useRouter();
 
@@ -31,7 +32,7 @@ export default function RequestHubPage() {
         body: JSON.stringify({ name, description }),
       });
       const data = await res.json();
-      
+
       if (res.ok) {
         setStatus({ type: 'success', msg: 'Proposal submitted! Our admins will review your community request shortly.' });
         setName('');
@@ -48,15 +49,15 @@ export default function RequestHubPage() {
 
   return (
     <div className="container animate-fade-in" style={{ padding: '4rem 1rem', maxWidth: '800px' }}>
-      
+
       {/* Header Section */}
       <div style={{ marginBottom: '3rem', textAlign: 'center' }}>
-        <div style={{ 
-          display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 16px', 
+        <div style={{
+          display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 16px',
           background: 'rgba(99, 102, 241, 0.1)', border: '1px solid rgba(99, 102, 241, 0.2)',
           borderRadius: 'var(--radius-full)', marginBottom: '1.5rem'
         }}>
-          <span style={{ fontSize: '14px' }}>🏢</span>
+          <HiOutlineBuildingOffice size={18} />
           <span style={{ fontSize: '10px', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '2px', color: 'var(--accent-primary)' }}>
             Expand the Network
           </span>
@@ -65,39 +66,39 @@ export default function RequestHubPage() {
           Propose a <span style={{ color: 'var(--accent-primary)' }}>New Hub</span>
         </h1>
         <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', maxWidth: '600px', margin: '0 auto', lineHeight: 1.6, fontWeight: 500 }}>
-          Is a subject or technology missing? Submit a proposal to start a new community. 
+          Is a subject or technology missing? Submit a proposal to start a new community.
           Moderators review all requests to ensure quality and relevance.
         </p>
       </div>
 
       {/* Form Section */}
       <div className="glass-panel shadow-glow" style={{ padding: '3rem', border: '1px solid rgba(255,255,255,0.05)' }}>
-        
+
         {status && (
-          <div style={{ 
+          <div style={{
             padding: '1.25rem', borderRadius: 'var(--radius-md)', marginBottom: '2rem',
             background: status.type === 'success' ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)',
             border: `1px solid ${status.type === 'success' ? 'rgba(16, 185, 129, 0.2)' : 'rgba(239, 68, 68, 0.2)'}`,
             color: status.type === 'success' ? 'var(--accent-success)' : 'var(--accent-danger)',
             fontSize: '14px', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '12px'
           }}>
-            <span>{status.type === 'success' ? '✅' : '❌'}</span>
+            <span>{status.type === 'success' ? <HiOutlineCheckCircle size={20} /> : <HiOutlineXCircle size={20} />}</span>
             {status.msg}
           </div>
         )}
 
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-          
+
           <div className="form-group" style={{ marginBottom: 0 }}>
             <label className="form-label" style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#fff' }}>
-              <span>🏷️</span> Hub Subject Name
+              <HiOutlineTag size={18} /> Hub Subject Name
             </label>
-            <input 
-              type="text" 
-              className="input" 
-              value={name} 
-              onChange={e => setName(e.target.value)} 
-              required 
+            <input
+              type="text"
+              className="input"
+              value={name}
+              onChange={e => setName(e.target.value)}
+              required
               style={{ padding: '1.25rem' }}
               placeholder="e.g. Quantum Computing, Advanced Calculus, etc."
             />
@@ -105,13 +106,13 @@ export default function RequestHubPage() {
 
           <div className="form-group" style={{ marginBottom: 0 }}>
             <label className="form-label" style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#fff' }}>
-              <span>📝</span> Community Rationale
+              <HiOutlineDocumentText size={18} /> Community Rationale
             </label>
-            <textarea 
-              className="input custom-scrollbar" 
-              value={description} 
-              onChange={e => setDescription(e.target.value)} 
-              required 
+            <textarea
+              className="input custom-scrollbar"
+              value={description}
+              onChange={e => setDescription(e.target.value)}
+              required
               rows={6}
               style={{ padding: '1.25rem', resize: 'none' }}
               placeholder="Why is this community needed? What topics will be discussed here? Help our admins understand the value of this new hub."
@@ -122,9 +123,9 @@ export default function RequestHubPage() {
             <Link href="/" style={{ fontSize: '12px', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '1px' }}>
               ← Back to Dashboard
             </Link>
-            <button 
-              type="submit" 
-              className="btn btn-primary" 
+            <button
+              type="submit"
+              className="btn btn-primary"
               disabled={loading}
               style={{ padding: '1rem 2.5rem', fontWeight: 900, fontSize: '14px', textTransform: 'uppercase', letterSpacing: '1px' }}
             >

@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
+import { HiOutlineMagnifyingGlass, HiOutlineRocketLaunch, HiOutlineGlobeAlt } from 'react-icons/hi2';
 
 export default function HubsPage() {
   const [hubs, setHubs] = useState<any[]>([]);
@@ -23,7 +24,7 @@ export default function HubsPage() {
       });
   }, []);
 
-  const filteredHubs = hubs.filter(hub => 
+  const filteredHubs = hubs.filter(hub =>
     hub.name.toLowerCase().includes(search.toLowerCase()) ||
     hub.description?.toLowerCase().includes(search.toLowerCase()) ||
     hub.category?.toLowerCase().includes(search.toLowerCase())
@@ -39,7 +40,7 @@ export default function HubsPage() {
 
   return (
     <div className="container animate-fade-in" style={{ paddingTop: '4rem', paddingBottom: '6rem' }}>
-      
+
       {/* 1. Explorer Header */}
       <div style={{ marginBottom: '4rem', textAlign: 'center' }}>
         <h1 style={{ fontSize: '3rem', fontWeight: 900, color: 'white', marginBottom: '1rem' }}>
@@ -53,18 +54,18 @@ export default function HubsPage() {
       {/* 2. Action Bar */}
       <div className="glass-panel" style={{ padding: '1.5rem 2rem', marginBottom: '3rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '2rem', flexWrap: 'wrap' }}>
         <div style={{ flex: 1, minWidth: '300px', position: 'relative' }}>
-          <span style={{ position: 'absolute', left: '1.25rem', top: '50%', transform: 'translateY(-50%)', opacity: 0.5 }}>🔍</span>
-          <input 
-            type="text" 
-            className="input" 
-            placeholder="Search hubs by name, category or topic..." 
+          <HiOutlineMagnifyingGlass size={20} className="text-gray-400" style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)' }} />
+          <input
+            type="text"
+            className="input"
+            placeholder="Search hubs by name, category or topic..."
             value={search}
             onChange={e => setSearch(e.target.value)}
             style={{ paddingLeft: '3rem' }}
           />
         </div>
-        <Link href="/hubs/create" className="btn btn-primary" style={{ padding: '1rem 2.5rem', fontWeight: 900, fontSize: '14px', textTransform: 'uppercase', letterSpacing: '1px' }}>
-          🚀 Create New Hub
+        <Link href="/hubs/create" className="btn btn-primary" style={{ padding: '1rem 2.5rem', fontWeight: 900, fontSize: '14px', textTransform: 'uppercase', letterSpacing: '1px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <HiOutlineRocketLaunch size={18} /> Create New Hub
         </Link>
       </div>
 
@@ -80,20 +81,25 @@ export default function HubsPage() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: '2rem' }}>
           {filteredHubs.map(hub => (
             <div key={hub.id} className="glass-panel group" style={{ padding: '2rem', transition: 'all 0.3s ease', border: '1px solid rgba(255,255,255,0.05)', position: 'relative', overflow: 'hidden' }}>
-              
+
               {/* Hub Theme Accent */}
-              <div style={{ 
-                position: 'absolute', top: 0, left: 0, width: '4px', height: '100%', 
-                background: hub.color || 'var(--accent-primary)', opacity: 0.6 
+              <div style={{
+                position: 'absolute', top: 0, left: 0, width: '4px', height: '100%',
+                background: hub.color || 'var(--accent-primary)', opacity: 0.6
               }}></div>
 
               <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1.5rem', marginBottom: '1.5rem' }}>
-                <div style={{ 
-                  width: '60px', height: '60px', borderRadius: '16px', background: 'rgba(255,255,255,0.03)', 
-                  display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '28px',
+                <div style={{
+                  width: '60px', height: '60px', borderRadius: '16px', background: 'rgba(255,255,255,0.03)',
                   border: '1px solid rgba(255,255,255,0.05)', flexShrink: 0
                 }}>
-                  {hub.icon || '🌐'}
+                  {hub.icon ? (
+                    typeof hub.icon === 'string' && hub.icon.startsWith('<') ? (
+                      <div dangerouslySetInnerHTML={{ __html: hub.icon }} />
+                    ) : (
+                      <span style={{ fontSize: '1.5rem' }}>{hub.icon}</span>
+                    )
+                  ) : <HiOutlineGlobeAlt size={28} />}
                 </div>
                 <div>
                   <h3 style={{ fontSize: '1.25rem', fontWeight: 900, color: 'white', marginBottom: '4px' }}>{hub.name}</h3>
@@ -124,8 +130,8 @@ export default function HubsPage() {
               </div>
 
               {/* Hover Glow */}
-              <div style={{ 
-                position: 'absolute', bottom: '-50px', right: '-50px', width: '150px', height: '150px', 
+              <div style={{
+                position: 'absolute', bottom: '-50px', right: '-50px', width: '150px', height: '150px',
                 background: hub.color || 'var(--accent-primary)', opacity: 0, filter: 'blur(60px)',
                 borderRadius: '50%', transition: 'opacity 0.3s ease', pointerEvents: 'none'
               }} className="group-hover:opacity-10"></div>

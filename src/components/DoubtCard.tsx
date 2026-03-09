@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
+import { HiOutlineLink, HiOutlineHandThumbUp, HiOutlineChatBubbleOvalLeftEllipsis, HiOutlineShare, HiOutlineBookmark } from 'react-icons/hi2';
 
 export default function DoubtCard({ doubt: initialDoubt, onUnbookmark }: { doubt: any, onUnbookmark?: (id: string) => void }) {
   const { user } = useAuth();
@@ -171,9 +172,9 @@ export default function DoubtCard({ doubt: initialDoubt, onUnbookmark }: { doubt
               href={link}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-blue-400 hover:underline break-all text-sm"
+              className="text-blue-400 hover:underline break-all text-sm flex items-center gap-1"
             >
-              🔗 {link}
+              <HiOutlineLink size={14} /> {link}
             </a>
           ))}
         </div>
@@ -197,7 +198,7 @@ export default function DoubtCard({ doubt: initialDoubt, onUnbookmark }: { doubt
           className={hasUpvoted ? "btn btn-primary" : "btn btn-secondary"}
           style={{ padding: '0.4rem 0.8rem', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}
         >
-          👍 Like
+          <HiOutlineHandThumbUp size={16} /> Like
         </button>
 
         <Link
@@ -205,7 +206,7 @@ export default function DoubtCard({ doubt: initialDoubt, onUnbookmark }: { doubt
           className="btn btn-secondary"
           style={{ padding: '0.4rem 0.8rem', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.4rem', textDecoration: 'none' }}
         >
-          💬 Comment / Answer
+          <HiOutlineChatBubbleOvalLeftEllipsis size={16} /> Comment / Answer
         </Link>
 
         <button
@@ -213,7 +214,7 @@ export default function DoubtCard({ doubt: initialDoubt, onUnbookmark }: { doubt
           className="btn btn-secondary"
           style={{ padding: '0.4rem 0.8rem', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}
         >
-          🔗 Share
+          <HiOutlineShare size={16} /> Share
         </button>
 
         <button
@@ -221,7 +222,7 @@ export default function DoubtCard({ doubt: initialDoubt, onUnbookmark }: { doubt
           className={hasBookmarked ? "btn btn-primary" : "btn btn-secondary"}
           style={{ padding: '0.4rem 0.8rem', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.4rem', marginLeft: 'auto' }}
         >
-          {hasBookmarked ? '🔖 Saved' : '🔖 Bookmark'}
+          <HiOutlineBookmark size={16} /> {hasBookmarked ? 'Saved' : 'Bookmark'}
         </button>
       </div>
 

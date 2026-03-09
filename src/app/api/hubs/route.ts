@@ -55,7 +55,7 @@ export async function POST(request: Request) {
       data: {
         name,
         description,
-        icon: icon || '🌐',
+        icon: icon || '',
         color: color || '#6366f1',
       }
     });

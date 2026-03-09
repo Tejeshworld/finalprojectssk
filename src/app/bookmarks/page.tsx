@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import Link from 'next/link';
 import DoubtCard from '@/components/DoubtCard';
+import { HiOutlineBookmark } from 'react-icons/hi2';
 
 export default function BookmarksPage() {
   const { user } = useAuth();
@@ -83,7 +84,9 @@ export default function BookmarksPage() {
             textAlign: 'center',
           }}
         >
-          <div style={{ fontSize: '3rem', opacity: 0.6 }}>🔖</div>
+          <div style={{ opacity: 0.6, display: 'flex', justifyContent: 'center' }}>
+            <HiOutlineBookmark size={48} />
+          </div>
           <h3 className="text-xl font-bold text-white" style={{ margin: 0 }}>No bookmarks yet</h3>
           <p className="text-text-secondary" style={{ margin: 0, maxWidth: '360px', lineHeight: 1.6 }}>
             Save interesting doubts to revisit them here.
