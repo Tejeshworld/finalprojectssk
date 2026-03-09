@@ -212,6 +212,17 @@ select {
   color: var(--text-muted);
 }
 
+/* Select dropdowns — ensure dark background in all browsers */
+select.input {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+select.input option {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
 .form-group {
   margin-bottom: 1.5rem;
 }

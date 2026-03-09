@@ -4,6 +4,18 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
 import NotificationDropdown from './NotificationDropdown';
+import {
+  HiOutlineSparkles,
+  HiOutlineTrophy,
+  HiOutlineChatBubbleLeftRight,
+  HiOutlineRectangleGroup,
+  HiOutlineBookmark,
+  HiOutlineBell,
+  HiOutlineUserCircle,
+  HiOutlineArrowRightOnRectangle,
+  HiOutlineKey,
+  HiOutlineRocketLaunch,
+} from 'react-icons/hi2';
 
 export default function Navbar() {
   const { user, logout, isLoading } = useAuth();
@@ -93,29 +105,43 @@ export default function Navbar() {
       {mobileOpen && (
         <div className="nav-mobile-menu" onClick={closeMobile}>
           <Link href="/ask" className="nav-mobile-item nav-mobile-cta">
-            ✨ Ask a Doubt
+            <HiOutlineSparkles size={18} /> Ask a Doubt
           </Link>
-          <Link href="/leaderboard" className="nav-mobile-item">🏆 Leaderboard</Link>
-          <Link href="/chat" className="nav-mobile-item">💬 Chat Lounge</Link>
-          <Link href="/hubs" className="nav-mobile-item">🏷️ Hubs</Link>
+          <Link href="/leaderboard" className="nav-mobile-item">
+            <HiOutlineTrophy size={18} /> Leaderboard
+          </Link>
+          <Link href="/chat" className="nav-mobile-item">
+            <HiOutlineChatBubbleLeftRight size={18} /> Chat Lounge
+          </Link>
+          <Link href="/hubs" className="nav-mobile-item">
+            <HiOutlineRectangleGroup size={18} /> Hubs
+          </Link>
 
           {!isLoading && (
             <>
               {user ? (
                 <>
-                  <Link href="/bookmarks" className="nav-mobile-item">🔖 Bookmarks</Link>
-                  <Link href="/notifications" className="nav-mobile-item">🔔 Notifications</Link>
+                  <Link href="/bookmarks" className="nav-mobile-item">
+                    <HiOutlineBookmark size={18} /> Bookmarks
+                  </Link>
+                  <Link href="/notifications" className="nav-mobile-item">
+                    <HiOutlineBell size={18} /> Notifications
+                  </Link>
                   <Link href={`/profile/${user.id}`} className="nav-mobile-item">
-                    👤 {user.username}
+                    <HiOutlineUserCircle size={18} /> {user.username}
                   </Link>
                   <button onClick={() => { logout(); closeMobile(); }} className="nav-mobile-item" style={{ width: '100%', textAlign: 'left', color: 'var(--accent-danger)' }}>
-                    🚪 Logout
+                    <HiOutlineArrowRightOnRectangle size={18} /> Logout
                   </button>
                 </>
               ) : (
                 <>
-                  <Link href="/login" className="nav-mobile-item">🔑 Login</Link>
-                  <Link href="/register" className="nav-mobile-item nav-mobile-cta">🚀 Sign Up</Link>
+                  <Link href="/login" className="nav-mobile-item">
+                    <HiOutlineKey size={18} /> Login
+                  </Link>
+                  <Link href="/register" className="nav-mobile-item nav-mobile-cta">
+                    <HiOutlineRocketLaunch size={18} /> Sign Up
+                  </Link>
                 </>
               )}
             </>
