@@ -110,7 +110,8 @@ export default function HubsPage() {
               <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1.5rem', marginBottom: '1.5rem' }}>
                 <div style={{
                   width: '60px', height: '60px', borderRadius: '16px', background: 'rgba(255,255,255,0.03)',
-                  border: '1px solid rgba(255,255,255,0.05)', flexShrink: 0
+                  border: '1px solid rgba(255,255,255,0.05)', flexShrink: 0,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center'
                 }}>
                   {renderHubIcon(hub.icon)}
                 </div>
