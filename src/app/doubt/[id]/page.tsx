@@ -226,7 +226,7 @@ export default function DoubtDetailPage() {
 
   return (
     <div style={{ maxWidth: '1100px', marginLeft: 'auto', marginRight: 'auto', paddingLeft: '24px', paddingRight: '24px', paddingBottom: '80px' }}>
-      <div className="animate-fade-in" style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) 340px', gap: '1.75rem', alignItems: 'start' }}>
+      <div className="animate-fade-in grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_340px] gap-7 items-start">
         <section>
           {/* Question Section */}
           <div className="glass-panel" style={{ padding: '2rem', marginBottom: '2rem' }}>

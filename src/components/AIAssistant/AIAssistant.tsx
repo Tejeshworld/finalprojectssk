@@ -92,7 +92,7 @@ export default function AIAssistant({ doubtId, autoOpen = false }: { doubtId: st
     return (
       <button
         onClick={() => setIsOpen(true)}
-        className="btn btn-primary pulse-success w-[340px]"
+        className="btn btn-primary pulse-success w-full"
         style={{
           borderRadius: 'var(--radius-full)',
           padding: '1rem 1.5rem',
@@ -107,7 +107,7 @@ export default function AIAssistant({ doubtId, autoOpen = false }: { doubtId: st
 
   return (
     <div
-      className="glass-panel animate-fade-in w-[340px] sticky top-24"
+      className="glass-panel animate-fade-in w-full sticky top-24"
       style={{
         height: '600px',
         zIndex: 10,
