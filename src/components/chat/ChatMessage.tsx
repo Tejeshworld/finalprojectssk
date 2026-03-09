@@ -109,32 +109,29 @@ export default function ChatMessage({
                         {message.content}
                     </div>
 
-                    {/* Delete button — positioned outside bubble */}
+                    {/* Delete button — integrated into message header context */}
                     {canDelete && !message.id.startsWith('temp-') && (
                         <button
                             onClick={() => onDelete(message.id)}
                             title="Delete"
                             style={{
                                 position: 'absolute',
-                                top: '50%',
-                                transform: 'translateY(-50%)',
-                                [isMine ? 'left' : 'right']: 'calc(100% + 8px)',
-                                padding: '5px',
-                                borderRadius: '8px',
-                                background: 'rgba(239,68,68,0.1)',
-                                border: '1px solid rgba(239,68,68,0.25)',
-                                color: '#ef4444',
+                                top: '-8px',
+                                [isMine ? 'left' : 'right']: '-8px',
+                                padding: '4px',
+                                borderRadius: '50%',
+                                background: 'rgba(239,68,68,0.9)',
+                                color: '#fff',
                                 cursor: 'pointer',
-                                opacity: 0,
-                                transition: 'opacity 0.2s',
+                                opacity: 1, /* Always visible on mobile instead of hiding */
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
+                                zIndex: 10,
+                                boxShadow: '0 2px 5px rgba(0,0,0,0.2)',
+                                transform: 'scale(1)',
+                                transition: 'transform 0.2s',
                             }}
-                            onMouseEnter={e => (e.currentTarget.style.opacity = '1')}
-                            onMouseLeave={e => (e.currentTarget.style.opacity = '0')}
-                            onFocus={e => (e.currentTarget.style.opacity = '1')}
-                            onBlur={e => (e.currentTarget.style.opacity = '0')}
                         >
                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                                 <path d="M3 6h18m-2 0v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6m3 0V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
