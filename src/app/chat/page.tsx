@@ -1,8 +1,10 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-import { useAuth } from "@/context/AuthContext";
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { useAuth } from '@/context/AuthContext';
+import Link from 'next/link';
+import { HiOutlineScale, HiOutlineSparkles, HiOutlineShieldExclamation, HiOutlineLightBulb } from 'react-icons/hi2';
 
 const GUIDELINES = [
   { icon: "🤝", title: "Be Respectful", body: "Treat everyone with courtesy. No harassment, hate speech, or personal attacks." },
@@ -88,7 +90,7 @@ export default function ChatGatePage() {
             fontSize: "2rem", margin: "0 auto 1.25rem",
             boxShadow: "0 12px 32px rgba(99,102,241,0.3)",
           }}>
-            ⚖️
+            <HiOutlineScale size={40} className="text-indigo-400" />
           </div>
           <h1 style={{ fontSize: "1.5rem", fontWeight: 900, color: "#fff", letterSpacing: "-0.03em", lineHeight: 1.2, marginBottom: "0.5rem" }}>
             Welcome to the Global<br />Community Lounge

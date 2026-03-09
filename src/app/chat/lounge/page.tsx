@@ -80,35 +80,52 @@ export default function LoungePage() {
 
     // ── Render: full chat UI ──
     return (
-        <div style={{ width: "100%", display: "flex", height: "calc(100vh - 64px)", overflow: "hidden" }}>
+        <div style={{ width: "100%", display: "flex", height: "calc(100vh - 64px)", overflow: "hidden", position: "relative" }}>
 
-            {/* ── Left Sidebar ── */}
+            {/* Mobile Sidebar Overlay */}
+            {activeHubId === 'mobile-menu-open' && (
+                <div
+                    onClick={() => setActiveHubId(null)}
+                    style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0,0,0,0.5)", zIndex: 40 }}
+                />
+            )}
+
+            {/* ── Left Sidebar (Responsive) ── */}
             <aside style={{
                 height: "100%", width: "260px", flexShrink: 0,
                 borderRight: "1px solid rgba(255,255,255,0.06)",
-                background: "rgba(0,0,0,0.3)", backdropFilter: "blur(12px)",
+                background: "rgba(0,0,0,0.85)", backdropFilter: "blur(20px)",
                 display: "flex", flexDirection: "column",
+                position: typeof window !== 'undefined' && window.innerWidth <= 768 ? "absolute" : "relative",
+                left: typeof window !== 'undefined' && window.innerWidth <= 768 ? (activeHubId === 'mobile-menu-open' ? 0 : "-100%") : 0,
+                transition: "left 0.3s ease",
+                zIndex: 50,
             }}>
                 {/* Navigation */}
-                <div style={{ padding: "1.25rem 1rem", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
-                    <p style={{ fontSize: "9px", fontWeight: 900, color: "rgba(255,255,255,0.2)", textTransform: "uppercase", letterSpacing: "0.3em", marginBottom: "0.875rem" }}>
-                        Navigation
-                    </p>
-                    <button
-                        onClick={() => setActiveHubId(null)}
-                        style={{
-                            width: "100%", display: "flex", alignItems: "center", gap: "0.75rem",
-                            padding: "0.6rem 0.75rem", borderRadius: "12px",
-                            fontSize: "0.875rem", fontWeight: 700, transition: "all 0.2s",
-                            background: !activeHubId ? "var(--accent-primary)" : "transparent",
-                            color: !activeHubId ? "#fff" : "rgba(255,255,255,0.4)",
-                            boxShadow: !activeHubId ? "0 4px 14px rgba(99,102,241,0.25)" : "none",
-                            cursor: "pointer", border: "none",
-                        }}
-                    >
-                        <span style={{ fontSize: "1rem" }}>🌐</span>
-                        <span>General Lounge</span>
-                    </button>
+                <div style={{ padding: "1.25rem 1rem", borderBottom: "1px solid rgba(255,255,255,0.06)", display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div>
+                        <p style={{ fontSize: "9px", fontWeight: 900, color: "rgba(255,255,255,0.2)", textTransform: "uppercase", letterSpacing: "0.3em", marginBottom: "0.875rem" }}>
+                            Navigation
+                        </p>
+                        <button
+                            onClick={() => { setActiveHubId(null); }}
+                            style={{
+                                width: "100%", display: "flex", alignItems: "center", gap: "0.75rem",
+                                padding: "0.6rem 0.75rem", borderRadius: "12px",
+                                fontSize: "0.875rem", fontWeight: 700, transition: "all 0.2s",
+                                background: !activeHubId ? "var(--accent-primary)" : "transparent",
+                                color: !activeHubId ? "#fff" : "rgba(255,255,255,0.4)",
+                                boxShadow: !activeHubId ? "0 4px 14px rgba(99,102,241,0.25)" : "none",
+                                cursor: "pointer", border: "none",
+                            }}
+                        >
+                            <span style={{ fontSize: "1rem" }}>🌐</span>
+                            <span>General Lounge</span>
+                        </button>
+                    </div>
+                    {typeof window !== 'undefined' && window.innerWidth <= 768 && (
+                        <button onClick={() => setActiveHubId(null)} style={{ background: 'none', border: 'none', color: '#fff', fontSize: '1.5rem', cursor: 'pointer' }}>×</button>
+                    )}
                 </div>
 
                 {/* Hub list */}
@@ -178,7 +195,12 @@ export default function LoungePage() {
                     borderLeft: "1px solid rgba(255,255,255,0.04)",
                     borderRight: "1px solid rgba(255,255,255,0.04)",
                 }}>
-                    <ChatLayout hubId={activeHubId || undefined} />
+                    <div style={{ padding: '0.5rem 1rem', background: 'rgba(0,0,0,0.3)', borderBottom: '1px solid rgba(255,255,255,0.05)', display: typeof window !== 'undefined' && window.innerWidth <= 768 ? 'block' : 'none' }}>
+                        <button onClick={() => setActiveHubId(activeHubId === 'mobile-menu-open' ? null : 'mobile-menu-open')} style={{ background: 'none', border: 'none', color: '#fff', fontSize: '1.25rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            ☰ <span style={{ fontSize: '0.85rem', fontWeight: 600 }}>Channels</span>
+                        </button>
+                    </div>
+                    <ChatLayout hubId={(activeHubId && activeHubId !== 'mobile-menu-open') ? activeHubId : undefined} />
                 </div>
             </main>
         </div>

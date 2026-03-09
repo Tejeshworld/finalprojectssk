@@ -6,6 +6,7 @@ import { useAuth } from '@/context/AuthContext';
 import Link from 'next/link';
 import AIAssistant from '@/components/AIAssistant/AIAssistant';
 import ConceptQuiz from '@/components/ConceptQuiz';
+import { HiOutlineHandThumbUp, HiOutlineBookmark, HiOutlineShare, HiOutlineCpuChip, HiOutlineTrash, HiOutlineLink, HiOutlineCheckCircle, HiOutlineClock, HiOutlineChevronUp } from 'react-icons/hi2';
 
 export default function DoubtDetailPage() {
   const { id } = useParams() as { id: string };
@@ -286,6 +287,7 @@ export default function DoubtDetailPage() {
               </div>
             )}
 
+// ... [REST OF FILE CONTENT ABOVE THIS REMAINS UNCHANGED] ...
             {/* Attached Links */}
             {doubt.links && doubt.links.length > 0 && (
               <div style={{ marginBottom: '1.5rem' }}>
@@ -293,7 +295,7 @@ export default function DoubtDetailPage() {
                 <ul style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                   {doubt.links.map((link: string, idx: number) => (
                     <li key={idx} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                      🔗 <a href={link} target="_blank" rel="noreferrer" style={{ color: 'var(--accent-primary)', textDecoration: 'underline' }}>{link}</a>
+                      <HiOutlineLink size={16} className="text-gray-400" /> <a href={link} target="_blank" rel="noreferrer" style={{ color: 'var(--accent-primary)', textDecoration: 'underline' }}>{link}</a>
                     </li>
                   ))}
                 </ul>
@@ -305,22 +307,23 @@ export default function DoubtDetailPage() {
               <button
                 onClick={() => handleReaction(id, true)}
                 className={upvotedDoubt ? "btn btn-primary" : "btn btn-secondary"}
-                style={{ padding: '0.5rem 1rem', fontSize: '0.9rem' }}
+                style={{ padding: '0.5rem 1rem', fontSize: '0.9rem', gap: '6px' }}
               >
-                👍 Upvote ({doubt._count.reactions})
+                <HiOutlineHandThumbUp size={16} /> Upvote ({doubt._count.reactions})
               </button>
               <button
                 onClick={toggleBookmark}
                 className={`px-4 py-2 rounded-lg ${hasBookmarked ? "bg-purple-500 text-white" : "border border-gray-500"}`}
+                style={{ display: 'flex', alignItems: 'center', gap: '6px' }}
               >
-                {hasBookmarked ? 'Saved' : 'Bookmark'}
+                <HiOutlineBookmark size={16} /> {hasBookmarked ? 'Saved' : 'Bookmark'}
               </button>
               <button
                 onClick={handleShare}
                 className="btn btn-secondary"
-                style={{ padding: '0.5rem 1rem', fontSize: '0.9rem' }}
+                style={{ padding: '0.5rem 1rem', fontSize: '0.9rem', gap: '6px' }}
               >
-                📤 Share
+                <HiOutlineShare size={16} /> Share
               </button>
 
               {!doubt.answers.some((a: any) => a.author.username === 'AI_SYSTEM') && (
@@ -328,9 +331,9 @@ export default function DoubtDetailPage() {
                   onClick={handleGenerateAI}
                   disabled={generatingAI}
                   className="btn btn-secondary"
-                  style={{ padding: '0.5rem 1rem', fontSize: '0.9rem', borderColor: 'var(--accent-primary)', color: 'var(--accent-primary)' }}
+                  style={{ padding: '0.5rem 1rem', fontSize: '0.9rem', borderColor: 'var(--accent-primary)', color: 'var(--accent-primary)', gap: '6px' }}
                 >
-                  {generatingAI ? '🤖 Generating...' : '🤖 Generate AI Explanation'}
+                  <HiOutlineCpuChip size={16} /> {generatingAI ? 'Generating...' : 'Generate AI Explanation'}
                 </button>
               )}
 
@@ -340,9 +343,9 @@ export default function DoubtDetailPage() {
                   onClick={handleDelete}
                   disabled={deleting}
                   className="btn btn-danger"
-                  style={{ padding: '0.5rem 1rem', fontSize: '0.9rem', marginLeft: 'auto' }}
+                  style={{ padding: '0.5rem 1rem', fontSize: '0.9rem', marginLeft: 'auto', gap: '6px' }}
                 >
-                  {deleting ? '🗑 Deleting...' : '🗑 Delete'}
+                  <HiOutlineTrash size={16} /> {deleting ? 'Deleting...' : 'Delete'}
                 </button>
               )}
             </div>
@@ -360,7 +363,7 @@ export default function DoubtDetailPage() {
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
-                <span style={{ fontSize: '1.4rem' }}>🤖</span>
+                <HiOutlineCpuChip size={24} className="text-indigo-400" />
                 <h3 style={{ margin: 0, fontSize: '1rem', fontWeight: 700, color: 'var(--text-primary)' }}>
                   AI Explanation
                 </h3>
@@ -389,13 +392,13 @@ export default function DoubtDetailPage() {
                   className="absolute top-4 right-4 text-gray-400 hover:text-red-500 transition"
                   title="Delete Answer"
                 >
-                  🗑
+                  <HiOutlineTrash size={18} />
                 </button>
               )}
 
               {answer.isBestAnswer && (
                 <div style={{ color: 'var(--accent-success)', fontSize: '0.85rem', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
-                  ✅ Best Answer
+                  <HiOutlineCheckCircle size={16} /> Best Answer
                 </div>
               )}
 
@@ -405,7 +408,7 @@ export default function DoubtDetailPage() {
                   <button
                     onClick={() => handleReaction(answer.id, false)}
                     style={{ color: upvotedAnswers.includes(answer.id) ? 'var(--accent-primary)' : 'var(--text-muted)', fontSize: '1.2rem' }}>
-                    ▲
+                    <HiOutlineChevronUp size={20} />
                   </button>
                   <strong style={{ fontSize: '1.1rem' }}>{answer._count.reactions}</strong>
                 </div>
@@ -428,7 +431,7 @@ export default function DoubtDetailPage() {
                     <div style={{ marginBottom: '1rem' }}>
                       <ul style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', fontSize: '0.9rem' }}>
                         {answer.links.map((link: string, idx: number) => (
-                          <li key={idx}>🔗 <a href={link} target="_blank" rel="noreferrer" style={{ color: 'var(--accent-primary)', textDecoration: 'underline' }}>{link}</a></li>
+                          <li key={idx} className="flex items-center gap-2"><HiOutlineLink size={14} className="text-gray-400" /> <a href={link} target="_blank" rel="noreferrer" style={{ color: 'var(--accent-primary)', textDecoration: 'underline' }}>{link}</a></li>
                         ))}
                       </ul>
                     </div>
@@ -531,8 +534,8 @@ export default function DoubtDetailPage() {
         <aside className="right-sidebar flex flex-col gap-6 sticky top-24">
           <div className="glass-panel" style={{ padding: '1.5rem' }}>
             <h4 style={{ color: 'var(--text-secondary)', marginBottom: '1rem' }}>Status</h4>
-            <div className="badge" style={{ backgroundColor: doubt.status === 'Solved' ? 'rgba(16, 185, 129, 0.1)' : 'rgba(245, 158, 11, 0.1)', color: doubt.status === 'Solved' ? 'var(--accent-success)' : 'var(--accent-warning)', fontSize: '0.9rem' }}>
-              {doubt.status === 'Solved' ? '✅ Solved' : '⏳ Open (Waiting for answers)'}
+            <div className="badge" style={{ backgroundColor: doubt.status === 'Solved' ? 'rgba(16, 185, 129, 0.1)' : 'rgba(245, 158, 11, 0.1)', color: doubt.status === 'Solved' ? 'var(--accent-success)' : 'var(--accent-warning)', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '6px' }}>
+              {doubt.status === 'Solved' ? <><HiOutlineCheckCircle size={16} /> Solved</> : <><HiOutlineClock size={16} /> Open (Waiting for answers)</>}
             </div>
           </div>
 

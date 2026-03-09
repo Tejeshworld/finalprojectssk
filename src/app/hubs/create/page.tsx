@@ -4,16 +4,17 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import Link from 'next/link';
+import { HiOutlineGlobeAlt, HiOutlineComputerDesktop, HiOutlineBeaker, HiOutlineBookOpen, HiOutlinePaintBrush, HiOutlineRocketLaunch, HiOutlineCpuChip, HiOutlineShieldCheck, HiOutlineAtSymbol } from 'react-icons/hi2';
 
 export default function CreateHubPage() {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
-  const [icon, setIcon] = useState('🌐');
+  const [icon, setIcon] = useState('GlobeAlt');
   const [color, setColor] = useState('#6366f1');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  
+
   const { user } = useAuth();
   const router = useRouter();
 
@@ -34,7 +35,7 @@ export default function CreateHubPage() {
         body: JSON.stringify({ name, description, category, icon, color }),
       });
       const data = await res.json();
-      
+
       if (res.ok) {
         router.push('/');
       } else {
@@ -47,12 +48,24 @@ export default function CreateHubPage() {
     }
   };
 
-  const icons = ['🌐', '💻', '🧪', '🔢', '📚', '🎨', '🚀', '🧠', '🛡️', '⚡', '🤖', '🌍'];
+  const ICONS = {
+    GlobeAlt: <HiOutlineGlobeAlt size={20} />,
+    ComputerDesktop: <HiOutlineComputerDesktop size={20} />,
+    Beaker: <HiOutlineBeaker size={20} />,
+    BookOpen: <HiOutlineBookOpen size={20} />,
+    PaintBrush: <HiOutlinePaintBrush size={20} />,
+    RocketLaunch: <HiOutlineRocketLaunch size={20} />,
+    CpuChip: <HiOutlineCpuChip size={20} />,
+    ShieldCheck: <HiOutlineShieldCheck size={20} />,
+    AtSymbol: <HiOutlineAtSymbol size={20} />
+  };
+  const iconKeys = Object.keys(ICONS) as Array<keyof typeof ICONS>;
+
   const colors = ['#6366f1', '#10b981', '#ec4899', '#f59e0b', '#ef4444', '#8b5cf6', '#3b82f6', '#06b6d4'];
 
   return (
     <div className="container animate-fade-in" style={{ padding: '4rem 1rem', maxWidth: '900px' }}>
-      
+
       {/* 1. Header (Matching Model) */}
       <div style={{ marginBottom: '2.5rem' }}>
         <h1 style={{ fontSize: '2.5rem', fontWeight: 900, color: 'white', marginBottom: '0.5rem' }}>
@@ -65,9 +78,9 @@ export default function CreateHubPage() {
 
       {/* 2. Glass Form (Matching Model) */}
       <div className="glass-panel" style={{ padding: '3rem', border: '1px solid rgba(255,255,255,0.05)', background: 'rgba(255,255,255,0.02)' }}>
-        
+
         {error && (
-          <div style={{ 
+          <div style={{
             padding: '1rem', background: 'rgba(239, 68, 68, 0.1)', border: '1px solid rgba(239, 68, 68, 0.2)',
             color: 'var(--accent-danger)', borderRadius: 'var(--radius-md)', marginBottom: '2rem', fontWeight: 700, fontSize: '14px'
           }}>
@@ -76,16 +89,16 @@ export default function CreateHubPage() {
         )}
 
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-          
+
           {/* Title / Name */}
           <div className="form-group" style={{ marginBottom: 0 }}>
             <label className="form-label">Hub Name</label>
-            <input 
-              type="text" 
-              className="input" 
-              value={name} 
-              onChange={e => setName(e.target.value)} 
-              required 
+            <input
+              type="text"
+              className="input"
+              value={name}
+              onChange={e => setName(e.target.value)}
+              required
               placeholder="e.g. Distributed Systems or Advanced Physics"
               style={{ background: 'rgba(0,0,0,0.2)' }}
             />
@@ -95,12 +108,12 @@ export default function CreateHubPage() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem' }}>
             <div className="form-group" style={{ marginBottom: 0 }}>
               <label className="form-label">Category / Topic</label>
-              <input 
-                type="text" 
-                className="input" 
-                value={category} 
-                onChange={e => setCategory(e.target.value)} 
-                required 
+              <input
+                type="text"
+                className="input"
+                value={category}
+                onChange={e => setCategory(e.target.value)}
+                required
                 placeholder="e.g. Engineering, Arts, IT"
                 style={{ background: 'rgba(0,0,0,0.2)' }}
               />
@@ -109,18 +122,19 @@ export default function CreateHubPage() {
             <div className="form-group" style={{ marginBottom: 0 }}>
               <label className="form-label">Starting Icon</label>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', padding: '8px', background: 'rgba(0,0,0,0.2)', borderRadius: 'var(--radius-md)', border: '1px solid rgba(255,255,255,0.05)' }}>
-                {icons.slice(0, 6).map(i => (
-                  <button 
-                    key={i} 
+                {iconKeys.slice(0, 9).map(i => (
+                  <button
+                    key={i}
                     type="button"
                     onClick={() => setIcon(i)}
-                    style={{ 
-                      width: '32px', height: '32px', borderRadius: '4px', fontSize: '16px',
+                    style={{
+                      width: '32px', height: '32px', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center',
                       background: icon === i ? 'var(--accent-primary)' : 'rgba(255,255,255,0.03)',
-                      transition: 'all 0.2s'
+                      transition: 'all 0.2s',
+                      color: icon === i ? 'white' : 'var(--text-secondary)'
                     }}
                   >
-                    {i}
+                    {ICONS[i]}
                   </button>
                 ))}
               </div>
@@ -130,11 +144,11 @@ export default function CreateHubPage() {
               <label className="form-label">Theme color</label>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', padding: '8px', background: 'rgba(0,0,0,0.2)', borderRadius: 'var(--radius-md)', border: '1px solid rgba(255,255,255,0.05)' }}>
                 {colors.slice(0, 6).map(c => (
-                  <button 
-                    key={c} 
+                  <button
+                    key={c}
                     type="button"
                     onClick={() => setColor(c)}
-                    style={{ 
+                    style={{
                       width: '32px', height: '32px', borderRadius: '4px',
                       background: c,
                       border: color === c ? '2px solid white' : '2px solid transparent',
@@ -150,11 +164,11 @@ export default function CreateHubPage() {
           {/* Description (Matching Detailed Description) */}
           <div className="form-group" style={{ marginBottom: 0 }}>
             <label className="form-label">Detailed Description</label>
-            <textarea 
-              className="input custom-scrollbar" 
-              value={description} 
-              onChange={e => setDescription(e.target.value)} 
-              required 
+            <textarea
+              className="input custom-scrollbar"
+              value={description}
+              onChange={e => setDescription(e.target.value)}
+              required
               rows={6}
               style={{ resize: 'none', background: 'rgba(0,0,0,0.2)' }}
               placeholder="Include the goals of this community and what students should expect..."
@@ -166,9 +180,9 @@ export default function CreateHubPage() {
             <Link href="/" style={{ fontSize: '12px', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '1px' }}>
               Cancel
             </Link>
-            <button 
-              type="submit" 
-              className="btn btn-primary" 
+            <button
+              type="submit"
+              className="btn btn-primary"
               disabled={loading}
               style={{ padding: '1rem 3.5rem', fontWeight: 900, fontSize: '14px', textTransform: 'uppercase', letterSpacing: '1px' }}
             >

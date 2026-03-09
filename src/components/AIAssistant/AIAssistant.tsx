@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import { HiOutlineLightBulb, HiOutlineClipboardDocumentCheck, HiOutlinePencilSquare, HiOutlineCpuChip } from 'react-icons/hi2';
 
 interface Message {
   role: 'user' | 'ai';
@@ -99,7 +100,7 @@ export default function AIAssistant({ doubtId, autoOpen = false }: { doubtId: st
           background: 'linear-gradient(135deg, var(--accent-primary), var(--accent-secondary))'
         }}
       >
-        <span>🤖</span> Ask AI Assistant
+        <span className="flex items-center gap-2"><HiOutlineCpuChip size={20} /> Ask AI Assistant</span>
       </button>
     );
   }
@@ -129,7 +130,7 @@ export default function AIAssistant({ doubtId, autoOpen = false }: { doubtId: st
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          <span style={{ fontSize: '1.5rem' }}>🤖</span>
+          <HiOutlineCpuChip size={24} className="text-purple-400" />
           <div>
             <h4 style={{ margin: 0, fontSize: '1rem' }}>AI Assistant</h4>
             <div style={{ fontSize: '0.7rem', color: 'var(--accent-success)', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
@@ -197,21 +198,21 @@ export default function AIAssistant({ doubtId, autoOpen = false }: { doubtId: st
                 <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>How can I help you?</p>
                 <button
                   onClick={() => handleSendMessage("Can you explain the concept behind this doubt?")}
-                  className="btn btn-secondary" style={{ padding: '0.5rem', fontSize: '0.8rem', justifyContent: 'flex-start' }}
+                  className="btn btn-secondary" style={{ padding: '0.5rem', fontSize: '0.8rem', justifyContent: 'flex-start', gap: '8px' }}
                 >
-                  💡 Explain the concept
+                  <HiOutlineLightBulb size={16} /> Explain the concept
                 </button>
                 <button
                   onClick={() => handleSendMessage("Give me a step-by-step guidance.")}
-                  className="btn btn-secondary" style={{ padding: '0.5rem', fontSize: '0.8rem', justifyContent: 'flex-start' }}
+                  className="btn btn-secondary" style={{ padding: '0.5rem', fontSize: '0.8rem', justifyContent: 'flex-start', gap: '8px' }}
                 >
-                  📝 Step-by-step guidance
+                  <HiOutlineClipboardDocumentCheck size={16} /> Step-by-step guidance
                 </button>
                 <button
                   onClick={() => handleSendMessage("Give me some practice questions.")}
-                  className="btn btn-secondary" style={{ padding: '0.5rem', fontSize: '0.8rem', justifyContent: 'flex-start' }}
+                  className="btn btn-secondary" style={{ padding: '0.5rem', fontSize: '0.8rem', justifyContent: 'flex-start', gap: '8px' }}
                 >
-                  🎯 Practice questions
+                  <HiOutlinePencilSquare size={16} /> Practice questions
                 </button>
               </div>
             )}

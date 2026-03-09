@@ -20,6 +20,8 @@ interface SidebarLeftProps {
   quote: string;
 }
 
+import { HiOutlineSparkles, HiOutlineRectangleGroup, HiOutlineRocketLaunch, HiOutlineBookmark, HiOutlineChatBubbleLeftRight } from 'react-icons/hi2';
+
 export default function SidebarLeft({ hubs, platformStats, quote }: SidebarLeftProps) {
   return (
     <aside className="sticky top-24 flex flex-col min-w-0" style={{ gap: '24px' }}>
@@ -29,14 +31,14 @@ export default function SidebarLeft({ hubs, platformStats, quote }: SidebarLeftP
         <p className="sidebar-label" style={{ marginBottom: '16px' }}>Quick Actions</p>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
           {[
-            { label: 'Ask a Doubt', link: '/ask', icon: '✍️' },
-            { label: 'Explore Hubs', link: '/hubs', icon: '🏢' },
-            { label: 'Start a Community', link: '/hubs/create', icon: '🚀' },
-            { label: 'Bookmarks', link: '/bookmarks', icon: '🔖' },
-            { label: 'Chat Lounge', link: '/chat', icon: '💬' },
+            { label: 'Ask a Doubt', link: '/ask', icon: <HiOutlineSparkles size={18} /> },
+            { label: 'Explore Hubs', link: '/hubs', icon: <HiOutlineRectangleGroup size={18} /> },
+            { label: 'Start a Community', link: '/hubs/create', icon: <HiOutlineRocketLaunch size={18} /> },
+            { label: 'Bookmarks', link: '/bookmarks', icon: <HiOutlineBookmark size={18} /> },
+            { label: 'Chat Lounge', link: '/chat', icon: <HiOutlineChatBubbleLeftRight size={18} /> },
           ].map(action => (
             <Link key={action.label} href={action.link} className="quick-action-link group" style={{ paddingTop: '10px', paddingBottom: '10px', gap: '12px' }}>
-              <div className="icon-box">{action.icon}</div>
+              <div className="icon-box" style={{ padding: '6px', fontSize: 'inherit' }}>{action.icon}</div>
               <span style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-secondary)' }}>
                 {action.label}
               </span>

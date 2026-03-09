@@ -27,13 +27,15 @@ interface SidebarRightProps {
     recentChat: ChatMessage[];
 }
 
+import { HiOutlineFire, HiOutlineTrophy, HiOutlineChatBubbleLeftEllipsis } from 'react-icons/hi2';
+
 export default function SidebarRight({ trendingDoubts, leaderboard, recentChat }: SidebarRightProps) {
     return (
         <aside className="sticky top-24 flex flex-col min-w-0" style={{ gap: '24px' }}>
 
             {/* Trending Now */}
             <div className="glass-panel" style={{ padding: '24px' }}>
-                <p className="sidebar-label" style={{ marginBottom: '16px' }}>🔥 Trending Now</p>
+                <p className="sidebar-label" style={{ marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '6px' }}><HiOutlineFire size={16} className="text-orange-500" /> Trending Now</p>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
                     {trendingDoubts.length === 0 ? (
                         <p style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Nothing trending yet.</p>
@@ -62,7 +64,7 @@ export default function SidebarRight({ trendingDoubts, leaderboard, recentChat }
 
             {/* Top Contributors */}
             <div className="glass-panel" style={{ padding: '24px' }}>
-                <p className="sidebar-label" style={{ marginBottom: '16px' }}>🏆 Top Contributors</p>
+                <p className="sidebar-label" style={{ marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '6px' }}><HiOutlineTrophy size={16} className="text-amber-500" /> Top Contributors</p>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
                     {leaderboard.map((u, idx) => (
                         <Link
@@ -107,7 +109,7 @@ export default function SidebarRight({ trendingDoubts, leaderboard, recentChat }
                 {/* Header */}
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                        <span style={{ fontSize: '14px' }}>💬</span>
+                        <HiOutlineChatBubbleLeftEllipsis size={18} className="text-indigo-400" />
                         <h3 style={{ fontSize: '10px', fontWeight: 900, color: 'white', textTransform: 'uppercase', letterSpacing: '2px' }}>
                             Live Chat Lounge
                         </h3>

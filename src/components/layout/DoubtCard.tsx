@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
+import { HiOutlineHandThumbUp, HiOutlineChatBubbleBottomCenterText, HiOutlineShare, HiOutlineBookmark } from 'react-icons/hi2';
 
 export default function DoubtCard({ doubt: initialDoubt }: { doubt: any }) {
     const { user } = useAuth();
@@ -124,27 +125,29 @@ export default function DoubtCard({ doubt: initialDoubt }: { doubt: any }) {
                 <button
                     onClick={handleUpvote}
                     className={hasUpvoted ? 'btn btn-primary doubt-card__btn' : 'btn btn-secondary doubt-card__btn'}
+                    style={{ gap: '6px' }}
                 >
-                    👍 {hasUpvoted ? 'Liked' : 'Like'}
+                    <HiOutlineHandThumbUp size={16} /> {hasUpvoted ? 'Liked' : 'Like'}
                 </button>
 
                 <Link
                     href={`/doubt/${doubt.id}`}
                     className="btn btn-secondary doubt-card__btn"
+                    style={{ gap: '6px' }}
                 >
-                    💬 Answer
+                    <HiOutlineChatBubbleBottomCenterText size={16} /> Answer
                 </Link>
 
-                <button onClick={handleShare} className="btn btn-secondary doubt-card__btn">
-                    🔗 Share
+                <button onClick={handleShare} className="btn btn-secondary doubt-card__btn" style={{ gap: '6px' }}>
+                    <HiOutlineShare size={16} /> Share
                 </button>
 
                 <button
                     onClick={handleBookmark}
                     className={hasBookmarked ? 'btn btn-primary doubt-card__btn' : 'btn btn-secondary doubt-card__btn'}
-                    style={{ marginLeft: 'auto' }}
+                    style={{ marginLeft: 'auto', gap: '6px' }}
                 >
-                    {hasBookmarked ? '🔖 Saved' : '🔖 Save'}
+                    <HiOutlineBookmark size={16} /> {hasBookmarked ? 'Saved' : 'Save'}
                 </button>
             </div>
         </div>

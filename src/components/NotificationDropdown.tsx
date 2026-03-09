@@ -4,13 +4,15 @@ import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
 
-const typeIconMap: Record<string, string> = {
-  answer: '💡',
-  reaction: '👍',
-  share: '🔗',
-  best_answer: '🏆',
-  mention: '💬',
-  system: '📢',
+import { HiOutlineLightBulb, HiOutlineHandThumbUp, HiOutlineShare, HiOutlineTrophy, HiOutlineChatBubbleLeftEllipsis, HiOutlineMegaphone, HiOutlineBell } from 'react-icons/hi2';
+
+const typeIconMap: Record<string, React.ReactNode> = {
+  answer: <HiOutlineLightBulb size={16} className="text-yellow-400" />,
+  reaction: <HiOutlineHandThumbUp size={16} className="text-blue-400" />,
+  share: <HiOutlineShare size={16} className="text-green-400" />,
+  best_answer: <HiOutlineTrophy size={16} className="text-amber-400" />,
+  mention: <HiOutlineChatBubbleLeftEllipsis size={16} className="text-purple-400" />,
+  system: <HiOutlineMegaphone size={16} className="text-indigo-400" />,
 };
 
 export default function NotificationDropdown() {
@@ -112,7 +114,7 @@ export default function NotificationDropdown() {
             justifyContent: 'center',
           }}
         >
-          <span style={{ fontSize: '1.2rem', lineHeight: 1 }}>🔔</span>
+          <HiOutlineBell size={22} className="text-gray-300" />
           {unreadCount > 0 && (
             <span style={{
               position: 'absolute',
@@ -165,7 +167,7 @@ export default function NotificationDropdown() {
               borderBottom: '1px solid rgba(255,255,255,0.06)',
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span style={{ fontSize: '1rem' }}>🔔</span>
+                <HiOutlineBell size={18} className="text-gray-300" />
                 <h3 style={{ fontSize: '14px', fontWeight: 700, color: '#fff', margin: 0 }}>
                   Notifications
                 </h3>
@@ -222,7 +224,7 @@ export default function NotificationDropdown() {
                   alignItems: 'center',
                   gap: '8px',
                 }}>
-                  <span style={{ fontSize: '2rem', opacity: 0.3 }}>🔔</span>
+                  <HiOutlineBell size={40} className="text-gray-500 opacity-50" />
                   <p style={{ fontSize: '13px', color: 'var(--text-muted)', fontWeight: 500, margin: 0 }}>
                     No notifications yet
                   </p>
@@ -285,7 +287,7 @@ export default function NotificationDropdown() {
                       flexShrink: 0,
                       marginLeft: '4px',
                     }}>
-                      {typeIconMap[n.type] || '📢'}
+                      {typeIconMap[n.type] || <HiOutlineMegaphone size={16} />}
                     </div>
                     {/* Content */}
                     <div style={{ minWidth: 0, flex: 1, paddingRight: '1.5rem' }}>

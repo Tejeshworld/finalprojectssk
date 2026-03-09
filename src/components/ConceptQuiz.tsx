@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from 'react';
+import { HiOutlineSparkles, HiOutlineHandThumbUp, HiOutlineBookOpen, HiOutlineCpuChip, HiOutlineCog, HiOutlineExclamationTriangle, HiOutlineLightBulb, HiOutlineCheck, HiOutlineXMark } from 'react-icons/hi2';
 
 interface QuizOption {
   A: string;
@@ -23,7 +24,7 @@ function getFeedback(score: number, total: number) {
   const pct = score / total;
   if (pct >= 0.8) {
     return {
-      emoji: '🎉',
+      icon: <HiOutlineSparkles size={24} />,
       label: 'Excellent Understanding!',
       message: 'Great job! You have understood the concept very well. Keep up the amazing work!',
       color: 'var(--accent-success)',
@@ -33,7 +34,7 @@ function getFeedback(score: number, total: number) {
   }
   if (pct >= 0.4) {
     return {
-      emoji: '👍',
+      icon: <HiOutlineHandThumbUp size={24} />,
       label: 'Partial Understanding',
       message: 'Good attempt! You have a basic understanding, but reviewing the concept again will help strengthen your knowledge.',
       color: 'var(--accent-warning)',
@@ -42,7 +43,7 @@ function getFeedback(score: number, total: number) {
     };
   }
   return {
-    emoji: '📚',
+    icon: <HiOutlineBookOpen size={24} />,
     label: 'Needs More Practice',
     message: 'It seems this topic needs a little more practice. Try reviewing the explanation again or ask the community for further help.',
     color: 'var(--accent-danger)',
@@ -72,11 +73,11 @@ export default function ConceptQuiz({ doubtId }: { doubtId: string }) {
       } catch (parseErr) {
         errorData = null;
       }
-      
+
       if (!res.ok) {
         throw new Error((errorData && errorData.error) ? errorData.error : 'Failed to generate quiz');
       }
-      
+
       setQuestions(errorData.questions);
       setQuizState('active');
     } catch (e: any) {
@@ -128,7 +129,7 @@ export default function ConceptQuiz({ doubtId }: { doubtId: string }) {
       >
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.4rem' }}>
-            <span style={{ fontSize: '1.4rem' }}>🧠</span>
+            <HiOutlineLightBulb size={24} className="text-yellow-400" />
             <strong style={{ fontSize: '1rem', color: 'var(--text-primary)' }}>Test My Understanding</strong>
           </div>
           <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', margin: 0 }}>
@@ -138,9 +139,9 @@ export default function ConceptQuiz({ doubtId }: { doubtId: string }) {
         <button
           onClick={startQuiz}
           className="btn btn-primary"
-          style={{ whiteSpace: 'nowrap', padding: '0.65rem 1.4rem', fontSize: '0.88rem' }}
+          style={{ whiteSpace: 'nowrap', padding: '0.65rem 1.4rem', fontSize: '0.88rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
         >
-          🧠 Start Quiz
+          <HiOutlineCpuChip size={18} /> Start Quiz
         </button>
       </div>
     );
@@ -153,7 +154,9 @@ export default function ConceptQuiz({ doubtId }: { doubtId: string }) {
         className="glass-panel animate-fade-in"
         style={{ margin: '1.5rem 0', padding: '2.5rem', textAlign: 'center' }}
       >
-        <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>⚙️</div>
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1rem' }}>
+          <HiOutlineCog size={32} className="text-indigo-400 animate-spin" />
+        </div>
         <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem' }}>
           AI is generating your quiz questions…
         </p>
@@ -176,8 +179,8 @@ export default function ConceptQuiz({ doubtId }: { doubtId: string }) {
           textAlign: 'center',
         }}
       >
-        <p style={{ color: 'var(--text-primary)', fontWeight: 500, marginBottom: '1rem' }}>
-          <span style={{ color: 'var(--accent-danger)', marginRight: '8px' }}>⚠️</span> 
+        <p style={{ color: 'var(--text-primary)', fontWeight: 500, marginBottom: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+          <HiOutlineExclamationTriangle size={20} className="text-red-500" />
           {errorMsg}
         </p>
         <button onClick={startQuiz} className="btn btn-secondary" style={{ fontSize: '0.85rem' }}>
@@ -212,7 +215,7 @@ export default function ConceptQuiz({ doubtId }: { doubtId: string }) {
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          <span style={{ fontSize: '1.4rem' }}>🧠</span>
+          <HiOutlineLightBulb size={24} className="text-yellow-400" />
           <div>
             <h4 style={{ margin: 0, fontSize: '1rem', color: 'var(--text-primary)' }}>
               Concept Check Quiz
@@ -244,7 +247,7 @@ export default function ConceptQuiz({ doubtId }: { doubtId: string }) {
             alignItems: 'flex-start',
           }}
         >
-          <span style={{ fontSize: '2rem', flexShrink: 0 }}>{feedback.emoji}</span>
+          <span style={{ fontSize: '2rem', flexShrink: 0 }}>{feedback.icon}</span>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.4rem' }}>
               <strong style={{ fontSize: '1.05rem', color: feedback.color }}>{feedback.label}</strong>
@@ -390,10 +393,10 @@ export default function ConceptQuiz({ doubtId }: { doubtId: string }) {
                       </span>
                       <span style={{ fontSize: '0.9rem', lineHeight: 1.4 }}>{q.options[opt]}</span>
                       {showCorrect && (
-                        <span style={{ marginLeft: 'auto', color: 'var(--accent-success)', fontSize: '1rem' }}>✓</span>
+                        <span style={{ marginLeft: 'auto', color: 'var(--accent-success)', fontSize: '1rem' }}><HiOutlineCheck size={18} /></span>
                       )}
                       {showWrong && (
-                        <span style={{ marginLeft: 'auto', color: 'var(--accent-danger)', fontSize: '1rem' }}>✗</span>
+                        <span style={{ marginLeft: 'auto', color: 'var(--accent-danger)', fontSize: '1rem' }}><HiOutlineXMark size={18} /></span>
                       )}
                     </button>
                   );
