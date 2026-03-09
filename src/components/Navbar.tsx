@@ -41,38 +41,42 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Nav */}
-        <div className="nav-desktop flex items-center gap-4">
-          <Link href="/leaderboard" style={{ fontWeight: 500, color: 'var(--text-secondary)' }} className="hover:text-white transition-colors">
+        <div className="nav-desktop flex flex-1 items-center justify-end gap-3 lg:gap-5 ml-8">
+          <Link href="/hubs" style={{ fontWeight: 500, color: 'var(--text-secondary)' }} className="hover:text-white transition-colors text-sm lg:text-base">
+            Hubs
+          </Link>
+          <Link href="/leaderboard" style={{ fontWeight: 500, color: 'var(--text-secondary)' }} className="hover:text-white transition-colors text-sm lg:text-base">
             Leaderboard
           </Link>
-          <Link href="/chat" style={{ fontWeight: 500, color: 'var(--text-secondary)' }} className="hover:text-white transition-colors">
+          <Link href="/chat" style={{ fontWeight: 500, color: 'var(--text-secondary)' }} className="hover:text-white transition-colors text-sm lg:text-base">
             Chat Lounge
           </Link>
-          <Link href="/ask">
-            <button className="btn btn-primary">Ask a Doubt</button>
+          <Link href="/ask" className="mx-1">
+            <button className="btn btn-primary" style={{ padding: '0.4rem 1rem', fontSize: '0.85rem' }}>Ask a Doubt</button>
           </Link>
 
           {!isLoading && (
             <>
               {user ? (
-                <div className="flex items-center gap-4">
-                  <Link href="/bookmarks" style={{ fontWeight: 500, color: 'var(--text-secondary)' }} className="hover:text-white">Bookmarks</Link>
+                <div className="flex items-center gap-3 border-l border-white/10 pl-3">
+                  <Link href="/bookmarks" style={{ color: 'var(--text-secondary)' }} className="hover:text-white transition-colors" title="Bookmarks">
+                    <HiOutlineBookmark size={22} />
+                  </Link>
                   <NotificationDropdown />
-                  <Link href={`/profile/${user.id}`} className="flex items-center gap-2" style={{ fontWeight: 500 }}>
-                    <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: 'var(--accent-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px', fontWeight: 'bold' }}>
+                  <Link href={`/profile/${user.id}`} className="flex items-center gap-2 ml-1" style={{ fontWeight: 500 }}>
+                    <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: 'var(--accent-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '13px', fontWeight: 'bold', color: 'white' }}>
                       {user.username.charAt(0).toUpperCase()}
                     </div>
-                    {user.username}
                   </Link>
-                  <button onClick={logout} className="btn btn-secondary" style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem' }}>
-                    Logout
+                  <button onClick={logout} className="hover:text-[var(--accent-danger)] text-[var(--text-secondary)] transition-colors ml-1" title="Logout">
+                    <HiOutlineArrowRightOnRectangle size={24} />
                   </button>
                 </div>
               ) : (
-                <>
-                  <Link href="/login" style={{ fontWeight: 500 }}>Login</Link>
-                  <Link href="/register" className="btn btn-secondary">Sign Up</Link>
-                </>
+                <div className="flex items-center gap-3 border-l border-white/10 pl-3">
+                  <Link href="/login" style={{ fontWeight: 500, color: 'var(--text-secondary)' }} className="hover:text-white transition-colors text-sm lg:text-base">Login</Link>
+                  <Link href="/register" className="btn btn-secondary" style={{ padding: '0.4rem 1rem', fontSize: '0.85rem' }}>Sign Up</Link>
+                </div>
               )}
             </>
           )}

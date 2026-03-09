@@ -946,6 +946,14 @@ select.input option {
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     animation: slideDown 0.25s ease;
+
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    max-height: calc(100vh - 65px);
+    overflow-y: auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   }
 
   @keyframes slideDown {
