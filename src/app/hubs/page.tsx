@@ -111,7 +111,7 @@ export default function HubsPage() {
                 <div style={{
                   width: '60px', height: '60px', borderRadius: '16px', background: 'rgba(255,255,255,0.03)',
                   border: '1px solid rgba(255,255,255,0.05)', flexShrink: 0,
-                  display: 'flex', alignItems: 'center', justifyContent: 'center'
+                  display: 'grid', placeItems: 'center'
                 }}>
                   {renderHubIcon(hub.icon)}
                 </div>

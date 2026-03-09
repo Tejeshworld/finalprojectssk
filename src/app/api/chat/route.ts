@@ -3,10 +3,12 @@ import { prisma } from '@/lib/db';
 import { getUserFromCookie } from '@/lib/auth';
 import { filterContent } from '@/lib/utils';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
-    const hubId = searchParams.get('hubId'); 
+    const hubId = searchParams.get('hubId');
 
     const messages = await (prisma as any).chatMessage.findMany({
       where: { hubId: hubId || null },
