@@ -2,7 +2,7 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 import { prisma } from './db';
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || 'dummy_key_to_prevent_crash');
-const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
 export interface AIResponse {
   answer: string;
@@ -223,9 +223,14 @@ export async function generateQuizQuestions(doubtId: string): Promise<QuizQuesti
       if (Array.isArray(parsed)) return parsed as QuizQuestion[];
     } catch {
       console.error('Failed to parse quiz JSON:', cleaned);
+      throw new Error("AI returned invalid question format. Please try again.");
     }
   } catch (error: any) {
     console.error("Gemini API Error in Quiz:", error.message || error);
+    if (error.message?.includes("429") || error.message?.includes("Quota")) {
+      throw new Error("You are generating quizzes too fast! Please wait 20 seconds and try again.");
+    }
+    throw new Error("Failed to reach AI service due to high traffic.");
   }
 
   return [];
