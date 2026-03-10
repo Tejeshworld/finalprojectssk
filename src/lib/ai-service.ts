@@ -2,7 +2,7 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 import { prisma } from './db';
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || 'dummy_key_to_prevent_crash');
-const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
 export interface AIResponse {
   answer: string;
@@ -30,9 +30,17 @@ export async function getAIExplanationFromProvider(doubtId: string): Promise<str
   Code: ${doubt.codeSnippet || 'None'}
   Hub: ${doubt.hub.name}`;
 
-  const result = await model.generateContent(prompt);
-  const response = await result.response;
-  return response.text() || "I'm sorry, I couldn't generate an explanation at this time.";
+  try {
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    return response.text() || "I'm sorry, I couldn't generate an explanation at this time.";
+  } catch (error: any) {
+    console.error("Gemini API Error:", error.message || error);
+    if (error.message?.includes("429") || error.message?.includes("Quota")) {
+      return "⚠️ The AI Assistant is currently experiencing high traffic (Quota Exceeded). Please try again later or check your API key limits.";
+    }
+    return "❌ An error occurred while contacting the AI service. Please try again later.";
+  }
 }
 
 export async function getAIExplanation(doubtId: string, message: string): Promise<AIResponse> {
@@ -202,18 +210,22 @@ export async function generateQuizQuestions(doubtId: string): Promise<QuizQuesti
   Context:
   ${contextPrompt}`;
 
-  const result = await model.generateContent(prompt);
-  const response = await result.response;
-  const raw = response.text() || '[]';
-
-  // Strip markdown fences if present
-  const cleaned = raw.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/i, '').trim();
-
   try {
-    const parsed = JSON.parse(cleaned);
-    if (Array.isArray(parsed)) return parsed as QuizQuestion[];
-  } catch {
-    console.error('Failed to parse quiz JSON:', cleaned);
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    const raw = response.text() || '[]';
+
+    // Strip markdown fences if present
+    const cleaned = raw.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/i, '').trim();
+
+    try {
+      const parsed = JSON.parse(cleaned);
+      if (Array.isArray(parsed)) return parsed as QuizQuestion[];
+    } catch {
+      console.error('Failed to parse quiz JSON:', cleaned);
+    }
+  } catch (error: any) {
+    console.error("Gemini API Error in Quiz:", error.message || error);
   }
 
   return [];
