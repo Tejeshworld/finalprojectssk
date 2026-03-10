@@ -192,7 +192,7 @@ export default function DoubtCard({ doubt: initialDoubt, onUnbookmark }: { doubt
       </div>
 
       {/* Interactive Actions */}
-      <div style={{ display: 'flex', gap: '0.75rem', marginTop: '0.5rem', borderTop: '1px solid var(--border-color)', paddingTop: '1rem' }}>
+      <div style={{ display: 'flex', gap: '0.75rem', marginTop: '0.5rem', borderTop: '1px solid var(--border-color)', paddingTop: '1rem', flexWrap: 'wrap' }}>
         <button
           onClick={handleUpvote}
           className={hasUpvoted ? "btn btn-primary" : "btn btn-secondary"}
