@@ -294,11 +294,16 @@ export default function AskDoubtPage() {
                   type="url"
                   value={linkInput}
                   onChange={e => setLinkInput(e.target.value)}
-                  onKeyDown={e => e.key === 'Enter' && (e.preventDefault(), addLink())}
+                  onKeyDown={e => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault();
+                      addLink();
+                    }
+                  }}
                   className="input"
                   placeholder="https://..."
                 />
-                <button type="button" onClick={addLink} className="btn btn-secondary">Add</button>
+                <button type="button" onClick={(e) => { e.preventDefault(); addLink(); }} className="btn btn-secondary">Add</button>
               </div>
               {links.length > 0 && (
                 <ul style={{ marginTop: '1rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>

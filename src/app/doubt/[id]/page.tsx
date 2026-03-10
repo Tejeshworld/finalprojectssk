@@ -287,7 +287,6 @@ export default function DoubtDetailPage() {
               </div>
             )}
 
-// ... [REST OF FILE CONTENT ABOVE THIS REMAINS UNCHANGED] ...
             {/* Attached Links */}
             {doubt.links && doubt.links.length > 0 && (
               <div style={{ marginBottom: '1.5rem' }}>
@@ -499,8 +498,21 @@ export default function DoubtDetailPage() {
                   <div className="form-group" style={{ flex: 1 }}>
                     <label className="form-label" style={{ fontSize: '0.85rem' }}>Attach Links</label>
                     <div style={{ display: 'flex', gap: '0.5rem' }}>
-                      <input type="url" value={linkInput} onChange={e => setLinkInput(e.target.value)} onKeyDown={e => e.key === 'Enter' && (e.preventDefault(), addLink())} className="input" placeholder="https://..." style={{ padding: '0.5rem', fontSize: '0.8rem' }} />
-                      <button type="button" onClick={addLink} className="btn btn-secondary" style={{ padding: '0.25rem 0.5rem', fontSize: '0.8rem' }}>Add</button>
+                      <input
+                        type="url"
+                        value={linkInput}
+                        onChange={e => setLinkInput(e.target.value)}
+                        onKeyDown={e => {
+                          if (e.key === 'Enter') {
+                            e.preventDefault();
+                            addLink();
+                          }
+                        }}
+                        className="input"
+                        placeholder="https://..."
+                        style={{ padding: '0.5rem', fontSize: '0.8rem' }}
+                      />
+                      <button type="button" onClick={(e) => { e.preventDefault(); addLink(); }} className="btn btn-secondary" style={{ padding: '0.25rem 0.5rem', fontSize: '0.8rem' }}>Add</button>
                     </div>
                     {links.length > 0 && (
                       <ul style={{ marginTop: '0.5rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
