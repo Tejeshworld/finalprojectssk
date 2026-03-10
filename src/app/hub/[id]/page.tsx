@@ -63,20 +63,20 @@ export default function HubsPage() {
   if (!hub) return <div style={{ textAlign: 'center', padding: '4rem' }}>Hub not found</div>;
 
   return (
-    <div className="animate-fade-in" style={{ padding: '2rem 0', maxWidth: '900px', margin: '0 auto' }}>
-      <div className="glass-panel" style={{ padding: '2rem', marginBottom: '2rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1.5rem', background: `linear-gradient(to right, ${hub.color}20, transparent)` }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-          <div style={{ width: '64px', height: '64px', borderRadius: '50%', background: hub.color, boxShadow: `0 0 20px ${hub.color}40` }}></div>
+    <div className="animate-fade-in" style={{ padding: '2rem 1rem', maxWidth: '900px', margin: '0 auto' }}>
+      <div className="glass-panel flex flex-col md:flex-row items-center md:justify-between gap-6" style={{ padding: '2rem', marginBottom: '2rem', background: `linear-gradient(to right, ${hub.color}20, transparent)` }}>
+        <div className="flex flex-col sm:flex-row items-center text-center sm:text-left gap-4 sm:gap-6">
+          <div style={{ width: '64px', height: '64px', borderRadius: '50%', background: hub.color, boxShadow: `0 0 20px ${hub.color}40`, flexShrink: 0 }}></div>
           <div>
             <h1 style={{ fontSize: '2rem', marginBottom: '0.5rem', color: hub.color }}>{hub.name}</h1>
             <p style={{ color: 'var(--text-secondary)' }}>{hub.description}</p>
             <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginTop: '0.25rem' }}>{followerCount} Followers</p>
           </div>
         </div>
-        
-        <button 
+
+        <button
           onClick={handleFollow}
-          className={isFollowing ? "btn btn-secondary" : "btn btn-primary"}
+          className={`${isFollowing ? "btn-secondary" : "btn-primary"} btn w-full md:w-auto`}
           style={{ padding: '0.5rem 1.5rem' }}
         >
           {isFollowing ? 'Following' : 'Follow Hub'}
